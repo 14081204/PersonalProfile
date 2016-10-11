@@ -1,0 +1,45 @@
+{
+	"groups": [
+		{
+			"keys": "bg_jpg,egret_icon_png,description_json,_dog_jpg,background1_jpg,background2_jpg,touxiang1_jpg",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "bg_jpg",
+			"type": "image",
+			"url": "assets/bg.jpg"
+		},
+		{
+			"name": "egret_icon_png",
+			"type": "image",
+			"url": "assets/egret_icon.png"
+		},
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "_dog_jpg",
+			"type": "image",
+			"url": "_dog.jpg"
+		},
+		{
+			"name": "background1_jpg",
+			"type": "image",
+			"url": "assets/background1.jpg"
+		},
+		{
+			"name": "background2_jpg",
+			"type": "image",
+			"url": "assets/background2.jpg"
+		},
+		{
+			"name": "touxiang1_jpg",
+			"type": "image",
+			"url": "assets/touxiang1.jpg"
+		}
+	]
+}
