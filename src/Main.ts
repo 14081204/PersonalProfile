@@ -158,36 +158,33 @@ class Main extends egret.DisplayObjectContainer {
 
     private MoveTotalPage(totalStage: any,PageNumber: number): void{
         //页面转换
-        var offsetX: number;
-        var offsetY: number;
-        var stageW: number = this.stage.stageWidth;
-        var stageH: number = this.stage.stageHeight;
-
+        
         totalStage.touchEnabled = true;
         totalStage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e: egret.TouchEvent) => {
-            //计算手指和要拖动的对象的距离
-            offsetX = e.stageX - totalStage.x;
-            offsetY = e.stageX - totalStage.y;
+            //计算手指和要拖动的对象的距离            
+            offsetY = e.stageY - totalStage.y;
             //手指在屏幕上移动，触发 onMove 方法
             totalStage.addEventListener(egret.TouchEvent.TOUCH_MOVE, onMove, this);}
         );
 
+        var offsetY: number;
+        var stageW: number = this.stage.stageWidth;
+        var stageH: number = this.stage.stageHeight;
+
         function onMove(MouseTouch: egret.TouchEvent): void{
-            //计算手指在屏幕上的位置，计算当前对象的坐标
-            totalStage.x = MouseTouch.stageX - offsetX;
+            //计算手指在屏幕上的位置，计算当前对象的坐标            
             totalStage.y = MouseTouch.stageY - offsetY;
             totalStage.addEventListener(egret.TouchEvent.TOUCH_END, stopMove, this);
         }
 
         function stopMove(MouseTouch: egret.TouchEvent){
-            var thisObjectMove = egret.Tween.get(this);
-            var currentX = MouseTouch.stageX - offsetX;
+            var thisObjectMove = egret.Tween.get(this);            
             var currentY = MouseTouch.stageY - offsetY;
             if(currentY < -(stageH / 2)){
-                thisObjectMove.to({x: 0,y: -stageH - 200},100).to({x: 0,y: -stageH + 150},150).to({x: 0,y:-stageH},150);
+                thisObjectMove.to({y: -stageH - 200},100).to({y: -stageH + 150},150).to({y:-stageH},150);
             }
             else{
-                thisObjectMove.to({x: 0,y: -200},100).to({x: 0,y: + 150},150).to({x: 0,y: 0},150);
+                thisObjectMove.to({y: -200},100).to({y: + 150},150).to({y: 0},150);
             }
             //手指离开屏幕，移除手指移动的监听
             totalStage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, onMove, this);
@@ -199,29 +196,32 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene():void {
+
+        var allPages = new egret.DisplayObjectContainer();
+        var firstPages = new egret.DisplayObjectContainer();
+        var secondPages = new egret.DisplayObjectContainer();
+        this.addChild(allPages);
+        allPages.addChild(firstPages);
+        allPages.addChild(secondPages);
+        secondPages.y = stageH;
+
+        //以下为第一页
         var sky:egret.Bitmap = this.createBitmapByName("background1_jpg");
-        this.addChild(sky);
+        firstPages.addChild(sky);
         var stageW:number = this.stage.stageWidth;
         var stageH:number = this.stage.stageHeight;
         sky.width = stageW;
         sky.height = stageH;
 
-        this.addChild(sky);
+        firstPages.addChild(sky);
         this.MoveTotalPage(this,2);
-
-        var sky2:egret.Bitmap = this.createBitmapByName("background2_jpg");
-        this.addChild(sky2);        
-        sky2.width = stageW;
-        sky2.height = stageH;
-        sky2.y = 1164;
-        this.addChild(sky2);
-
+        
         var topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.2);
         topMask.graphics.drawRect(0, 0, stageW, 320);
         topMask.graphics.endFill();
         topMask.y = 25;
-        this.addChild(topMask);
+        firstPages.addChild(topMask);
 
         var icon:egret.Bitmap = this.createBitmapByName("touxiang1_jpg");
         this.addChild(icon);
@@ -235,7 +235,7 @@ class Main extends egret.DisplayObjectContainer {
         line.graphics.endFill();
         line.x = 250;
         line.y = 50;
-        this.addChild(line);
+        firstPages.addChild(line);
 
 
         var colorLabel = new egret.TextField();//Hello Everyone
@@ -246,7 +246,7 @@ class Main extends egret.DisplayObjectContainer {
         colorLabel.size = 36;
         colorLabel.x = 175;
         colorLabel.y = 50;
-        this.addChild(colorLabel);
+        firstPages.addChild(colorLabel);
 
         var introname = new egret.TextField();//姓名   点击变换颜色
         introname.width = stageW - 200;
@@ -256,7 +256,7 @@ class Main extends egret.DisplayObjectContainer {
         introname.text = "我是李博瑶"
         introname.x = 225;
         introname.y = 105;
-        this.addChild(introname);        
+        firstPages.addChild(introname);        
         
         var colors:Array<number> = [];
         colors.push(0xff0000);
@@ -271,7 +271,7 @@ class Main extends egret.DisplayObjectContainer {
             count %= colors.length;
             introname.textColor = colors[count++];
         },this);
-        this.addChild(introname);
+        firstPages.addChild(introname);
 
         var intropersonality = new egret.TextField();//性格   点击变换倾斜                
         intropersonality.width = stageW - 200;
@@ -285,7 +285,7 @@ class Main extends egret.DisplayObjectContainer {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
             intropersonality.italic = !intropersonality.italic;
         },this);
-        this.addChild(intropersonality);
+        firstPages.addChild(intropersonality);
 
         var introworkattitude = new egret.TextField();//工作   点击变换倾斜                
         introworkattitude.width = stageW - 200;
@@ -299,7 +299,7 @@ class Main extends egret.DisplayObjectContainer {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
             introworkattitude.italic = !introworkattitude.italic;
         },this);
-        this.addChild(introworkattitude);
+        firstPages.addChild(introworkattitude);
 
         var introteamwork = new egret.TextField();//团队   点击变换倾斜                
         introteamwork.width = stageW - 200;
@@ -313,10 +313,10 @@ class Main extends egret.DisplayObjectContainer {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
             introteamwork.italic = !introteamwork.italic;
         },this);
-        this.addChild(introteamwork);
+        firstPages.addChild(introteamwork);
 
         var textfield = new egret.TextField();//变化字
-        this.addChild(textfield);
+        firstPages.addChild(textfield);
         textfield.alpha = 0;
         textfield.width = stageW - 200;
         textfield.textAlign = egret.HorizontalAlign.CENTER;
@@ -342,7 +342,29 @@ class Main extends egret.DisplayObjectContainer {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
             introhobby.bold = !introhobby.bold;
         },this);
-        this.addChild(introhobby);
+        firstPages.addChild(introhobby);
+
+        //以下为第二页
+        var sky2:egret.Bitmap = this.createBitmapByName("background2_jpg");
+        secondPages.addChild(sky2);        
+        sky2.width = stageW;
+        sky2.height = stageH;
+        sky2.y = 1164;
+        secondPages.addChild(sky2);
+
+        var introhobby = new egret.TextField();//喜好   点击变换加粗                
+        introhobby.width = stageW - 200;
+        introhobby.textAlign = "center";
+        introhobby.size = 45;
+        introhobby.textColor = 0x000000;
+        introhobby.text = "喜爱小动物";
+        introhobby.x = 25;
+        introhobby.y = 50;
+        introhobby.bold = false;
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
+            introhobby.bold = !introhobby.bold;
+        },this);
+        secondPages.addChild(introhobby);
     }
 
     /**
