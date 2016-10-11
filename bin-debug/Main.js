@@ -130,6 +130,41 @@ var Main = (function (_super) {
             .to({ x: this._vcLocation[3].x, y: this._vcLocation[3].y }, 500)
             .call(function () { _this._dog.rotation = -90; }).wait(200);
     };
+    p.MoveTotalPage = function (totalStage, PageNumber) {
+        var _this = this;
+        //页面转换
+        var offsetX;
+        var offsetY;
+        var stageW = this.stage.stageWidth;
+        var stageH = this.stage.stageHeight;
+        totalStage.touchEnabled = true;
+        totalStage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
+            //计算手指和要拖动的对象的距离
+            offsetX = e.stageX - totalStage.x;
+            offsetY = e.stageX - totalStage.y;
+            //手指在屏幕上移动，触发 onMove 方法
+            totalStage.addEventListener(egret.TouchEvent.TOUCH_MOVE, onMove, _this);
+        });
+        function onMove(MouseTouch) {
+            //计算手指在屏幕上的位置，计算当前对象的坐标
+            totalStage.x = MouseTouch.stageX - offsetX;
+            totalStage.y = MouseTouch.stageY - offsetY;
+            totalStage.addEventListener(egret.TouchEvent.TOUCH_END, stopMove, this);
+        }
+        function stopMove(MouseTouch) {
+            var thisObjectMove = egret.Tween.get(this);
+            var currentX = MouseTouch.stageX - offsetX;
+            var currentY = MouseTouch.stageY - offsetY;
+            if (currentY < -(stageH / 2)) {
+                thisObjectMove.to({ x: 0, y: -stageH - 200 }, 100).to({ x: 0, y: -stageH + 150 }, 150).to({ x: 0, y: -stageH }, 150);
+            }
+            else {
+                thisObjectMove.to({ x: 0, y: -200 }, 100).to({ x: 0, y: +150 }, 150).to({ x: 0, y: 0 }, 150);
+            }
+            //手指离开屏幕，移除手指移动的监听
+            totalStage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, onMove, this);
+        }
+    };
     /**
      * 创建游戏场景
      * Create a game scene
@@ -142,7 +177,7 @@ var Main = (function (_super) {
         sky.width = stageW;
         sky.height = stageH;
         this.addChild(sky);
-        //this.MoveTotalPage(this,2);
+        this.MoveTotalPage(this, 2);
         var sky2 = this.createBitmapByName("background2_jpg");
         this.addChild(sky2);
         sky2.width = stageW;
