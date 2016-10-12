@@ -40,7 +40,7 @@ var Main = (function (_super) {
         this.stage.addChild(this.loadingView);
         var imgLoader = new egret.ImageLoader;
         imgLoader.once(egret.Event.COMPLETE, this.imgLoadHandler, this);
-        imgLoader.load("resource/_dog.jpg");
+        imgLoader.load("resource/dong3.jpg");
         //初始化Resource资源加载库
         //initiate Resource loading library
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
@@ -102,16 +102,16 @@ var Main = (function (_super) {
     p.imgLoadHandler = function (evt) {
         var bmd = evt.currentTarget.data;
         this._vcLocation = [
-            new egret.Point(bmd.width / 2, 100 + bmd.height / 2),
-            new egret.Point(this.stage.stageWidth - bmd.width / 2, this.stage.stageHeight - bmd.height / 2),
-            new egret.Point(bmd.width / 2, this.stage.stageHeight - bmd.height / 2),
-            new egret.Point(this.stage.stageWidth - bmd.width / 2, 100 + bmd.height / 2)
+            new egret.Point(65, 345),
+            new egret.Point(160, 500),
+            new egret.Point(65, 500),
+            new egret.Point(160, 345)
         ];
         this._rotCommon = 180 / Math.PI + Math.atan2(this._vcLocation[1].y - this._vcLocation[0].y, this._vcLocation[1].x - this._vcLocation[0].x);
         this._dog = new egret.Bitmap(bmd);
         this._dog.anchorOffsetX = bmd.width / 2;
         this._dog.anchorOffsetY = bmd.height / 2;
-        this.addChild(this._dog);
+        //this.addChild(this._dog);
         this._dog.x = this._vcLocation[3].x;
         this._dog.y = this._vcLocation[3].y;
         this._dog.rotation = -90;
@@ -296,26 +296,95 @@ var Main = (function (_super) {
             introhobby.bold = !introhobby.bold;
         }, this);
         firstPages.addChild(introhobby);
+        firstPages.addChild(this._dog);
         //以下为第二页
         var sky2 = this.createBitmapByName("background2_jpg");
         secondPages.addChild(sky2);
         sky2.width = stageW;
         sky2.height = stageH;
-        sky2.y = 1164;
+        sky2.y = 0;
+        secondPages.y = 1136;
         secondPages.addChild(sky2);
-        var introhobby = new egret.TextField(); //喜好   点击变换加粗                
-        introhobby.width = stageW - 200;
-        introhobby.textAlign = "center";
-        introhobby.size = 45;
-        introhobby.textColor = 0x000000;
-        introhobby.text = "喜爱小动物";
-        introhobby.x = 25;
-        introhobby.y = 50;
-        introhobby.bold = false;
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            introhobby.bold = !introhobby.bold;
-        }, this);
-        secondPages.addChild(introhobby);
+        var introduce = new egret.TextField(); //基本资料                   
+        introduce.width = stageW - 300;
+        introduce.textAlign = "center";
+        introduce.size = 50;
+        introduce.textColor = 0x000000;
+        introduce.text = "基本资料";
+        introduce.x = 225;
+        introduce.y = 175;
+        introduce.bold = true;
+        secondPages.addChild(introduce);
+        var introname1 = new egret.TextField(); //姓名                   
+        introname1.width = stageW - 300;
+        introname1.textAlign = "center";
+        introname1.size = 36;
+        introname1.textColor = 0x7f00ff;
+        introname1.text = "姓名:李博瑶";
+        introname1.x = 220;
+        introname1.y = 275;
+        introname1.bold = true;
+        secondPages.addChild(introname1);
+        var introsex = new egret.TextField(); //性别                   
+        introsex.width = stageW - 300;
+        introsex.textAlign = "center";
+        introsex.size = 36;
+        introsex.textColor = 0x0000ff;
+        introsex.text = "性别:女";
+        introsex.x = 185;
+        introsex.y = 325;
+        introsex.bold = true;
+        secondPages.addChild(introsex);
+        var introage = new egret.TextField(); //年龄                   
+        introage.width = stageW - 300;
+        introage.textAlign = "center";
+        introage.size = 36;
+        introage.textColor = 0x00ffff;
+        introage.text = "年龄:20";
+        introage.x = 185;
+        introage.y = 375;
+        introage.bold = true;
+        secondPages.addChild(introage);
+        var introinterest = new egret.TextField(); //爱好                   
+        introinterest.width = stageW - 300;
+        introinterest.textAlign = "center";
+        introinterest.size = 36;
+        introinterest.textColor = 0x00ff00;
+        introinterest.text = "爱好:阅读、旅行";
+        introinterest.x = 255;
+        introinterest.y = 425;
+        introinterest.bold = true;
+        secondPages.addChild(introinterest);
+        var introschool = new egret.TextField(); //学校                   
+        introschool.width = stageW - 300;
+        introschool.textAlign = "center";
+        introschool.size = 36;
+        introschool.textColor = 0xffff00;
+        introschool.text = "学校:北京工业大学";
+        introschool.x = 272;
+        introschool.y = 475;
+        introschool.bold = true;
+        secondPages.addChild(introschool);
+        var introprofessional = new egret.TextField(); //专业                   
+        introprofessional.width = stageW - 300;
+        introprofessional.textAlign = "center";
+        introprofessional.size = 36;
+        introprofessional.textColor = 0xff7f00;
+        introprofessional.text = "专业:数字媒体技术";
+        introprofessional.x = 270;
+        introprofessional.y = 525;
+        introprofessional.bold = true;
+        secondPages.addChild(introprofessional);
+        var introphonenumber = new egret.TextField(); //手机号                   
+        introphonenumber.width = stageW - 200;
+        introphonenumber.textAlign = "center";
+        introphonenumber.size = 36;
+        introphonenumber.textColor = 0xff0000;
+        introphonenumber.text = "手机号:151xxxxx018";
+        introphonenumber.x = 238;
+        introphonenumber.y = 575;
+        introphonenumber.bold = true;
+        secondPages.addChild(introphonenumber);
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
