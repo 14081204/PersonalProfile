@@ -48,7 +48,7 @@ class Main extends egret.DisplayObjectContainer {
 
         var imgLoader:egret.ImageLoader = new egret.ImageLoader;
         imgLoader.once(egret.Event.COMPLETE,this.imgLoadHandler,this);
-        imgLoader.load("resource/_dog.jpg");
+        imgLoader.load("resource/dong1.jpg");
 
         //初始化Resource资源加载库
         //initiate Resource loading library
@@ -125,17 +125,17 @@ class Main extends egret.DisplayObjectContainer {
         var bmd:egret.BitmapData = evt.currentTarget.data;
 
         this._vcLocation = [
-            new egret.Point(bmd.width / 2, 100 + bmd.height / 2)
-            ,new egret.Point(this.stage.stageWidth - bmd.width / 2, this.stage.stageHeight - bmd.height / 2)
-            ,new egret.Point(bmd.width / 2, this.stage.stageHeight - bmd.height / 2)
-            ,new egret.Point(this.stage.stageWidth - bmd.width / 2, 100 + bmd.height / 2)
+            new egret.Point(110, 345)
+            ,new egret.Point(160, 500)
+            ,new egret.Point(110, 500)
+            ,new egret.Point(160, 345)
         ];
         this._rotCommon = 180 / Math.PI + Math.atan2(
             this._vcLocation[1].y - this._vcLocation[0].y, this._vcLocation[1].x - this._vcLocation[0].x);
         this._dog = new egret.Bitmap(bmd);
         this._dog.anchorOffsetX = bmd.width / 2;
         this._dog.anchorOffsetY = bmd.height / 2;
-        this.addChild(this._dog);
+        //this.addChild(this._dog);
 
         this._dog.x = this._vcLocation[3].x;
         this._dog.y = this._vcLocation[3].y;
@@ -344,6 +344,8 @@ class Main extends egret.DisplayObjectContainer {
         },this);
         firstPages.addChild(introhobby);
 
+        firstPages.addChild(this._dog);
+
         //以下为第二页
         var sky2:egret.Bitmap = this.createBitmapByName("background2_jpg");
         secondPages.addChild(sky2);        
@@ -352,7 +354,7 @@ class Main extends egret.DisplayObjectContainer {
         sky2.y = 1164;
         secondPages.addChild(sky2);
 
-        var introhobby = new egret.TextField();//喜好   点击变换加粗                
+        /*var introhobby = new egret.TextField();//喜好   点击变换加粗                
         introhobby.width = stageW - 200;
         introhobby.textAlign = "center";
         introhobby.size = 45;
@@ -364,7 +366,9 @@ class Main extends egret.DisplayObjectContainer {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
             introhobby.bold = !introhobby.bold;
         },this);
-        secondPages.addChild(introhobby);
+        secondPages.addChild(introhobby);*/
+
+
     }
 
     /**

@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,_dog_jpg,background1_jpg,background2_jpg,touxiang1_jpg",
+			"keys": "bg_jpg,egret_icon_png,description_json,_dog_jpg,background1_jpg,background2_jpg,touxiang1_jpg,dong3_jpg,dong1_jpg,dong2_png",
 			"name": "preload"
 		}
 	],
@@ -40,6 +40,21 @@
 			"name": "touxiang1_jpg",
 			"type": "image",
 			"url": "assets/touxiang1.jpg"
+		},
+		{
+			"name": "dong3_jpg",
+			"type": "image",
+			"url": "dong3.jpg"
+		},
+		{
+			"name": "dong1_jpg",
+			"type": "image",
+			"url": "dong1.jpg"
+		},
+		{
+			"name": "dong2_png",
+			"type": "image",
+			"url": "dong2.png"
 		}
 	]
 }
